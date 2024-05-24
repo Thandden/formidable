@@ -14,7 +14,7 @@ class Form(ABC):
     def get_validators(self) -> List[Validator]:
         pass
 
-    def validate(self) -> Tuple[bool, Dict[str, str]]:
+    def validate(self) -> Dict[str, str]:
         errors: Dict[str, str]
         errors = {}
         csrf_token: str = self.form_data.get('csrf_token', '')
@@ -33,4 +33,4 @@ class Form(ABC):
                 field_name = validator.__class__.__name__.replace('Validator', '').lower()
                 errors[f"{field_name}_error"] = str(e)
 
-        return (len(errors) == 0), errors
+        return errors

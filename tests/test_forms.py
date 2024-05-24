@@ -45,12 +45,13 @@ def test_email_form():
     csrf.generate_token()
     form_data = {'email': 'test@example.com', 'csrf_token': storage['csrf_token']}
     form = MockEmailForm(form_data, csrf)
-    form.validate()
+    errors = form.validate()
+    assert not errors  # No errors should be present
 
-    with pytest.raises(ValidationError):
-        invalid_form_data = {'email': 'invalid-email', 'csrf_token': storage['csrf_token']}
-        invalid_form = MockEmailForm(invalid_form_data, csrf)
-        invalid_form.validate()
+    invalid_form_data = {'email': 'invalid-email', 'csrf_token': storage['csrf_token']}
+    invalid_form = MockEmailForm(invalid_form_data, csrf)
+    errors = invalid_form.validate()
+    assert 'email_error' in errors  # Email validation should fail
 
 def test_contact_form():
     storage = MockStorage()
@@ -66,10 +67,11 @@ def test_contact_form():
         'csrf_token': storage['csrf_token']
     }
     form = MockContactForm(form_data, csrf)
-    form.validate()
+    errors = form.validate()
+    assert not errors  # No errors should be present
 
-    with pytest.raises(ValidationError):
-        invalid_form_data = form_data.copy()
-        invalid_form_data['email'] = 'invalid-email'
-        invalid_form = MockContactForm(invalid_form_data, csrf)
-        invalid_form.validate()
+    invalid_form_data = form_data.copy()
+    invalid_form_data['email'] = 'invalid-email'
+    invalid_form = MockContactForm(invalid_form_data, csrf)
+    errors = invalid_form.validate()
+    assert 'email_error' in errors  # Email validation should fail
