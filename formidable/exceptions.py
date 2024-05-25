@@ -19,5 +19,6 @@ class FieldRequiredError(ValidationError):
 class SelectFieldError(ValidationError):
     pass
 
+
 class CustomError(ValidationError):
     pass

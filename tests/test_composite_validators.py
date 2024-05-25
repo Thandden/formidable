@@ -2,6 +2,7 @@ import pytest
 from formidable.composite_validators import CompositePasswordValidator
 from formidable.exceptions import PasswordError
 
+
 def test_composite_password_validator():
     validator = CompositePasswordValidator("Password1!")
     validator.validate()

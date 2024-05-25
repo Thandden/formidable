@@ -18,4 +18,3 @@ from .csrf import CSRF
 from .forms import Form
 from .composite_validators import CompositePasswordValidator
 from .storage import FlaskSessionStorage
-

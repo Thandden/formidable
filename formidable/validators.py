@@ -80,10 +80,11 @@ class SelectFieldValidator(Validator):
         if self.field_value not in self.valid_options:
             raise SelectFieldError(f"Invalid selection for {self.field_name}")
 
+
 class OptionalFieldValidator(Validator):
     def __init__(self, field_value: Optional[str], field_name: Optional[str]):
         self.field_value = field_value
         self.field_name = field_name
-    
+
     def validate(self) -> None:
         pass
